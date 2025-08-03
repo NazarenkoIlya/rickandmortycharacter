@@ -1,4 +1,4 @@
-package com.example.rickandmortyapplication.presentation.fragments.adapter
+package com.example.rickandmortyapplication.presentation.fragments.charactersfragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rickandmortyapplication.R
 import com.example.rickandmortyapplication.databinding.CharacterItemLayoutBinding
-import com.example.rickandmortyapplication.presentation.fragments.holders.CharacterViewHolder
-import com.example.rickandmortyapplication.presentation.fragments.holders.MainViewHolder
-import com.example.rickandmortyapplication.presentation.model.CharacterForRecycle
-import com.example.rickandmortyapplication.presentation.model.OnStateChanged
-import com.example.rickandmortyapplication.presentation.model.ViewItem
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.holders.CharacterViewHolder
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.holders.MainViewHolder
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.CharacterForRecycle
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.OnStateChanged
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.ViewItem
 
 
 class CharactersAdapter(

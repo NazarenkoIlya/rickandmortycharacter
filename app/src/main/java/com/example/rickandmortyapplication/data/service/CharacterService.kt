@@ -1,13 +1,12 @@
 package com.example.rickandmortyapplication.data.service
 
-import com.example.rickandmortyapplication.data.model.DataResponse
+import com.example.rickandmortyapplication.data.model.Character
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface CharacterService {
-    @GET("character")
-    suspend fun getCharacters(
-        @Query("page") page: Int
-    ): DataResponse
+    @GET("character/{num}")
+    suspend fun getCharacter(
+       @Path("num") num: Int
+    ): Character
 }

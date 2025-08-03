@@ -1,13 +1,13 @@
-package com.example.rickandmortyapplication.presentation.fragments.holders
+package com.example.rickandmortyapplication.presentation.fragments.charactersfragment.holders
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.rickandmortyapplication.databinding.CharacterItemLayoutBinding
-import com.example.rickandmortyapplication.presentation.model.CharacterForRecycle
-import com.example.rickandmortyapplication.presentation.model.OnItemClicked
-import com.example.rickandmortyapplication.presentation.model.OnStateChanged
-import com.example.rickandmortyapplication.presentation.model.ViewItem
-import com.example.rickandmortyapplication.presentation.model.statusColor
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.CharacterForRecycle
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.OnItemClicked
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.OnStateChanged
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.ViewItem
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.statusColor
 
 
 class CharacterViewHolder(
@@ -26,7 +26,9 @@ class CharacterViewHolder(
         }
         binding.root.setOnClickListener {
             onStateChange.invoke(
-                OnItemClicked
+                OnItemClicked(
+                    numberCharacter = item.id.toInt()
+                )
             )
         }
 

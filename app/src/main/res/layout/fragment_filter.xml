@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/filtersTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="27dp"
+        android:text="Filters"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/backImageButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/titleListDivider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="center"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/filtersTextView" />
+
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Reset"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backImageButton"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_left_arrow_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/filtersTextView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/nameEditTextText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:gravity="start|center_vertical"
+                android:textDirection="ltr"
+                android:layoutDirection="ltr"
+                android:hint="Name"
+                android:background="@drawable/border_custom_all_angels_black"
+                android:inputType="text"
+                android:paddingStart="32dp"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
+
+
+            <TextView
+                android:id="@+id/statusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Status"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/statusRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radioNone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag=""
+                    android:paddingStart="10dp"
+                    android:text="None"
+                    android:textColor="@color/black"
+                    android:textSize="32sp" />
+
+                <RadioButton
+                    android:id="@+id/radioAlive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/alive"
+                    android:paddingStart="10dp"
+                    android:text="Alive"
+                    android:textColor="@color/black"
+                    android:textSize="32sp" />
+
+                <RadioButton
+                    android:id="@+id/radioDead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:text="Dead"
+                    android:tag="@string/dead"
+                    android:textColor="@color/black"
+
+                    android:textSize="32sp" />
+
+                <RadioButton
+                    android:id="@+id/radioUnknown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:text="Unknown"
+                    android:tag="@string/unknown"
+                    android:textColor="@color/black"
+                    android:textSize="32sp" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/speciesEditTextText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_custom_all_angels_black"
+                android:ems="10"
+                android:hint="Species"
+                android:inputType="text"
+                android:paddingStart="32dp"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
+
+            <EditText
+                android:id="@+id/typeEditTextText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/border_custom_all_angels_black"
+                android:ems="10"
+                android:hint="Type"
+                android:inputType="text"
+                android:paddingStart="32dp"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
+
+
+            <TextView
+                android:id="@+id/genderTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Gender"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/genderRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/radioGenderNone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tag=""
+                    android:paddingStart="10dp"
+                    android:text="None"
+                    android:textColor="@color/black"
+                    android:textSize="32sp" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:paddingStart="10dp"
+                    android:text="Female"
+                    android:tag="@string/female"
+                    android:textColor="@color/black"
+                    android:textSize="32sp" />
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:tag="@string/male"
+                    android:text="Male"
+                    android:textColor="@color/black"
+
+                    android:textSize="32sp" />
+
+                <RadioButton
+                    android:id="@+id/radioGenderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:text="Genderless"
+                    android:tag="@string/genderless"
+                    android:textColor="@color/black"
+                    android:textSize="32sp" />
+
+                <RadioButton
+                    android:id="@+id/radiogenderUnknown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:tag="@string/unknown"
+                    android:text="Unknown"
+                    android:textColor="@color/black"
+                    android:textSize="32sp" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/EmptyView"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/filtersTextView" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/applyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="52dp"
+        android:backgroundTint="@color/dim_gray"
+        android:text="Apply"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

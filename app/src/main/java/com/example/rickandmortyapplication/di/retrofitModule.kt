@@ -1,6 +1,8 @@
 package com.example.rickandmortyapplication.di
 
 import com.example.rickandmortyapplication.data.service.CharacterService
+import com.example.rickandmortyapplication.data.service.CharactersFilterService
+import com.example.rickandmortyapplication.data.service.CharactersService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.koin.dsl.module
@@ -18,10 +20,18 @@ val retrofitModule = module {
         //.setLenient()
         .create()
 
-    fun providePointsService(retrofit: Retrofit): CharacterService =
+    fun provideCharactersService(retrofit: Retrofit): CharactersService =
+        retrofit.create(CharactersService::class.java)
+
+    fun provideCharacterService(retrofit: Retrofit): CharacterService =
         retrofit.create(CharacterService::class.java)
 
-    single { providePointsService(get()) }
+    fun provideCharactersFilterService(retrofit: Retrofit): CharactersFilterService =
+        retrofit.create(CharactersFilterService::class.java)
+
+    single { provideCharactersFilterService(get()) }
+    single { provideCharactersService(get()) }
+    single { provideCharacterService(get()) }
     factory { provideRetrofit(get()) }
     factory { provideGson() }
 }

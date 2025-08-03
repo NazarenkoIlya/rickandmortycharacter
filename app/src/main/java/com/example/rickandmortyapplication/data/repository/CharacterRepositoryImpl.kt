@@ -2,25 +2,24 @@ package com.example.rickandmortyapplication.data.repository
 
 import com.example.rickandmortyapplication.data.service.CharacterService
 import com.example.rickandmortyapplication.domain.model.CharacterData
-import com.example.rickandmortyapplication.domain.repository.CharactersRepository
+import com.example.rickandmortyapplication.domain.repository.CharacterRepository
 
-class CharacterRepositoryImpl(private val service: CharacterService) : CharactersRepository {
-    override suspend fun saveCharacters(vararg characters: CharacterData) {
-
+class CharacterRepositoryImpl(
+    val characterService: CharacterService
+) : CharacterRepository {
+    override suspend fun getCharacter(number: Int): CharacterData {
+        val details = characterService.getCharacter(number)
+        return CharacterData(
+            id = details.id.toString(),
+            name = details.name,
+            imageUrl = details.image,
+            status = details.status,
+            gender = details.gender,
+            species = details.species,
+            origin = details.origin.name,
+            type = details.type,
+            location = details.location.name
+        )
     }
 
-    override suspend fun getCharacters(page: Int): List<CharacterData> {
-        return service.getCharacters(page).results.map { it ->
-            CharacterData(
-                id = it.id.toString(),
-                name = it.name,
-                imageUrl = it.image,
-                status = it.status,
-                gender = it.gender,
-                species = it.species,
-                origin = it.origin.name,
-                location = it.location.name
-            )
-        }
-    }
 }

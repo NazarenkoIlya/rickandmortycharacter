@@ -3,6 +3,7 @@ package com.example.rickandmortyapplication.app
 import android.app.Application
 import com.example.rickandmortyapplication.di.dataModule
 import com.example.rickandmortyapplication.di.domainModule
+import com.example.rickandmortyapplication.di.managerModule
 import com.example.rickandmortyapplication.di.retrofitModule
 import com.example.rickandmortyapplication.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -23,7 +24,7 @@ class MainApplication : Application() {
                     //gsonModule,
                     //serviceModule,
                     viewModelModule,
-                    //managerModule,
+                    managerModule,
                     dataModule,
                     domainModule,
                     //dataBaseModule

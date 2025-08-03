@@ -7,7 +7,22 @@
 
     <fragment
         android:id="@+id/charactersFragment"
-        android:name="com.example.rickandmortyapplication.presentation.fragments.CharactersFragment"
+        android:name="com.example.rickandmortyapplication.presentation.fragments.charactersfragment.CharactersFragment"
         android:label="fragment_characters"
-        tools:layout="@layout/fragment_characters" />
+        tools:layout="@layout/fragment_characters" >
+        <action
+            android:id="@+id/action_charactersFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_charactersFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.rickandmortyapplication.presentation.fragments.detailsfragment.DetailsFragment"
+        android:label="DetailsFragment" />
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="com.example.rickandmortyapplication.presentation.fragments.filterfragment.FilterFragment"
+        android:label="FilterFragment" />
 </navigation>

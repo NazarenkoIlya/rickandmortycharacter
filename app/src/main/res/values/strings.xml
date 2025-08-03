@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">RickAndMortyApplication</string>
+    <string name="details">"The character named %1$s is a %2$s %3$s %4$s with a status of '%5$s'. He is originally from %6$s, and his last known location is the %7$s."</string>
+    >
+    <string name="alive">alive</string>
+    <string name="dead">dead</string>
+
+    <string name="unknown">unknown</string>
+
+    <string name="female">female</string>
+    <string name="male">male</string>
+    <string name="genderless">genderless</string>
+
 </resources>
+

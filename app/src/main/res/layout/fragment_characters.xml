@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.fragments.CharactersFragment">
+    tools:context=".presentation.fragments.charactersfragment.CharactersFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textSize="54sp"
-        android:gravity="center"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textSize="54sp"
+            android:gravity="start"
 
-        android:text="Characters" />
+            android:text="Characters" />
+
+        <ImageButton
+            android:id="@+id/filterImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="24dp"
+
+            android:src="@drawable/ic_filter"
+            />
+
+    </LinearLayout>
+
 
     <View
         android:id="@+id/titleListDivider"
@@ -28,5 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="54dp"/>
+
+
 
 </LinearLayout>

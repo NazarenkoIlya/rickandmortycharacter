@@ -1,4 +1,4 @@
-package com.example.rickandmortyapplication.presentation.model
+package com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model
 
 import android.graphics.Color
 import java.util.Locale
