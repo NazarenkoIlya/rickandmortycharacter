@@ -92,4 +92,6 @@ dependencies {
     //cardview
     implementation(libs.cardview)
 
+    //swiperefreshlayout
+    implementation(libs.swiperefreshlayout)
 }

@@ -34,6 +34,15 @@ class FilterViewModel(
 
     lateinit var pervFilter: FilterView
 
+    private val resetFilter: FilterView = FilterView(
+        isApply = false,
+        name = "",
+        status = Status.None,
+        species = "",
+        type = "",
+        gender = Gender.None,
+    )
+
     init {
         compareData()
     }
@@ -87,6 +96,7 @@ class FilterViewModel(
     private fun compareData() {
         viewModelScope.launch {
             val filter = getFilterCharacterUseCase.execute().copy(isApply = false)
+
             pervFilter = FilterView(
                 isApply = filter.isApply,
                 name = filter.name,
@@ -103,13 +113,13 @@ class FilterViewModel(
                 type = filter.type,
                 gender = setGender(filter.gender)
             )
+
         }
     }
 
     private fun changedStateButton() {
         stateButton.value = state.value?.equals(pervFilter)
     }
-
 
     fun onEvent(onStateChanged: OnStateChanged) {
         when (onStateChanged) {
@@ -119,7 +129,6 @@ class FilterViewModel(
                     saveFilterCharacterUseCase.execute(
                         FilterData(
                             isApply = true,
-                            //reset = filter.reset,
                             name = filter.name,
                             status = filter.status.status,
                             species = filter.species,
@@ -131,13 +140,7 @@ class FilterViewModel(
             }
 
             OnResetClicked -> {
-                state.value = state.value?.copy(
-                    name = "",
-                    status = Status.None,
-                    species = "",
-                    type = "",
-                    gender = Gender.None
-                )
+                state.value = resetFilter
             }
 
             is NameChanged -> {

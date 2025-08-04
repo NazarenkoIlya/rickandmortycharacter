@@ -1,6 +1,7 @@
 package com.example.rickandmortyapplication.app
 
 import android.app.Application
+import com.example.rickandmortyapplication.di.dataBaseModule
 import com.example.rickandmortyapplication.di.dataModule
 import com.example.rickandmortyapplication.di.domainModule
 import com.example.rickandmortyapplication.di.managerModule
@@ -27,7 +28,7 @@ class MainApplication : Application() {
                     managerModule,
                     dataModule,
                     domainModule,
-                    //dataBaseModule
+                    dataBaseModule
                 )
             )
         }

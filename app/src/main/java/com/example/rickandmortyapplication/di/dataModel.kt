@@ -1,5 +1,6 @@
 package com.example.rickandmortyapplication.di
 
+import com.example.rickandmortyapplication.data.repository.CharacterDataBaseRepositoryImpl
 import com.example.rickandmortyapplication.data.repository.CharacterNumberRepositoryImpl
 import com.example.rickandmortyapplication.data.repository.CharacterRepositoryImpl
 import com.example.rickandmortyapplication.data.repository.CharactersRepositoryImpl
@@ -9,6 +10,7 @@ import com.example.rickandmortyapplication.data.storage.SharedPrefsCharacterNumb
 import com.example.rickandmortyapplication.data.storage.CharacterNumberStorage
 import com.example.rickandmortyapplication.data.storage.FilterStorage
 import com.example.rickandmortyapplication.data.storage.SharedPrefsFilterStorage
+import com.example.rickandmortyapplication.domain.repository.CharacterDataBaseRepository
 import com.example.rickandmortyapplication.domain.repository.CharacterNumberRepository
 import com.example.rickandmortyapplication.domain.repository.CharacterRepository
 import com.example.rickandmortyapplication.domain.repository.CharactersRepository
@@ -58,4 +60,11 @@ val dataModule = module {
             charactersFilterService = get()
         )
     }
+
+    single<CharacterDataBaseRepository> {
+        CharacterDataBaseRepositoryImpl(
+            dao = get()
+        )
+    }
+
 }

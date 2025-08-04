@@ -54,14 +54,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/filtersTextView">
+        app:layout_constraintTop_toBottomOf="@+id/titleListDivider">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="28dp">
 
             <EditText
                 android:id="@+id/nameEditTextText"
@@ -70,15 +72,15 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/border_custom_all_angels_black"
                 android:ems="10"
                 android:gravity="start|center_vertical"
-                android:textDirection="ltr"
-                android:layoutDirection="ltr"
                 android:hint="Name"
-                android:background="@drawable/border_custom_all_angels_black"
                 android:inputType="text"
+                android:layoutDirection="ltr"
                 android:paddingStart="32dp"
                 android:textColor="@color/black"
+                android:textDirection="ltr"
                 android:textSize="40sp" />
 
 
@@ -105,8 +107,8 @@
                     android:id="@+id/radioNone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag=""
                     android:paddingStart="10dp"
+                    android:tag=""
                     android:text="None"
                     android:textColor="@color/black"
                     android:textSize="32sp" />
@@ -115,8 +117,8 @@
                     android:id="@+id/radioAlive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag="@string/alive"
                     android:paddingStart="10dp"
+                    android:tag="@string/alive"
                     android:text="Alive"
                     android:textColor="@color/black"
                     android:textSize="32sp" />
@@ -126,8 +128,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="10dp"
-                    android:text="Dead"
                     android:tag="@string/dead"
+                    android:text="Dead"
                     android:textColor="@color/black"
 
                     android:textSize="32sp" />
@@ -137,8 +139,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="10dp"
-                    android:text="Unknown"
                     android:tag="@string/unknown"
+                    android:text="Unknown"
                     android:textColor="@color/black"
                     android:textSize="32sp" />
             </RadioGroup>
@@ -197,8 +199,8 @@
                     android:id="@+id/radioGenderNone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tag=""
                     android:paddingStart="10dp"
+                    android:tag=""
                     android:text="None"
                     android:textColor="@color/black"
                     android:textSize="32sp" />
@@ -209,8 +211,8 @@
                     android:layout_height="wrap_content"
 
                     android:paddingStart="10dp"
-                    android:text="Female"
                     android:tag="@string/female"
+                    android:text="Female"
                     android:textColor="@color/black"
                     android:textSize="32sp" />
 
@@ -230,8 +232,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="10dp"
-                    android:text="Genderless"
                     android:tag="@string/genderless"
+                    android:text="Genderless"
                     android:textColor="@color/black"
                     android:textSize="32sp" />
 
@@ -249,11 +251,14 @@
             <View
                 android:id="@+id/EmptyView"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center"
                 android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@+id/filtersTextView" />
+
+
         </LinearLayout>
+
 
     </ScrollView>
 
@@ -263,7 +268,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="100dp"
         android:backgroundTint="@color/dim_gray"
         android:text="Apply"
         android:textSize="35sp"

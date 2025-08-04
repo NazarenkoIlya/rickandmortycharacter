@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.rickandmortyapplication.databinding.FragmentDetailsBinding
+import com.example.rickandmortyapplication.presentation.fragments.detailsfragment.model.UIDetailsState
 import com.example.rickandmortyapplication.utils.autoCleared
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,6 +33,28 @@ class DetailsFragment : Fragment() {
             binding.informationTextView.text = state.information
             binding.imageView.load(state.image) {
                 crossfade(true)
+            }
+        }
+
+        viewModel._uiState.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                is UIDetailsState.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.errorMessageTextView.visibility = View.GONE
+                }
+
+                is UIDetailsState.Success -> {
+
+                    binding.progressBar.visibility = View.GONE
+                    binding.errorMessageTextView.visibility = View.GONE
+                }
+
+                is UIDetailsState.Error -> {
+
+                    binding.progressBar.visibility = View.GONE
+                    binding.errorMessageTextView.visibility = View.VISIBLE
+                    binding.errorMessageTextView.text = uiState.message
+                }
             }
         }
 

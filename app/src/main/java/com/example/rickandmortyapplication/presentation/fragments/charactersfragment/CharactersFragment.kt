@@ -1,6 +1,7 @@
 package com.example.rickandmortyapplication.presentation.fragments.charactersfragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import com.example.rickandmortyapplication.databinding.FragmentCharactersBinding
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.GoToDetail
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.GoToFilters
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.OnFilterClicked
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.UIState
 import com.example.rickandmortyapplication.utils.autoCleared
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +36,7 @@ class CharactersFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadData()
+        //binding.recyclerView.smoothScrollToPosition(0)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,6 +70,30 @@ class CharactersFragment : Fragment() {
             viewModel.resetStateNavigate()
         }
 
+        viewModel._uiState.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                is UIState.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.errorMessageTextView.visibility = View.GONE
+                    //binding.recyclerView.visibility = View.GONE
+                }
+
+                is UIState.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.errorMessageTextView.visibility = View.GONE
+                    binding.swipeRefreshLayout.visibility = View.VISIBLE
+                }
+
+                is UIState.Error -> {
+
+                    binding.progressBar.visibility = View.GONE
+                    binding.errorMessageTextView.visibility = View.VISIBLE
+                    binding.errorMessageTextView.text = uiState.message
+                    binding.swipeRefreshLayout.visibility = View.GONE
+                }
+            }
+        }
+
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(rv: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(rv, dx, dy)
@@ -84,7 +111,11 @@ class CharactersFragment : Fragment() {
                 }
             }
         })
+
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.loadData()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
-
-
 }

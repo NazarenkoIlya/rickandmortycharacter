@@ -1,8 +1,12 @@
 package com.example.rickandmortyapplication.data.mapper
 
+import android.util.Log
+import androidx.sqlite.db.SimpleSQLiteQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.rickandmortyapplication.data.model.CharacterNumberData
 import com.example.rickandmortyapplication.data.model.DataResponse
 import com.example.rickandmortyapplication.data.model.FilterDataSave
+import com.example.rickandmortyapplication.data.model.room.characters.dbo.CharacterDbo
 import com.example.rickandmortyapplication.domain.model.CharacterData
 import com.example.rickandmortyapplication.domain.model.CharacterResponse
 import com.example.rickandmortyapplication.domain.model.FilterData
@@ -45,6 +49,34 @@ fun FilterData.toQueryMap(): Map<String, String> {
     }
 }
 
+fun FilterData.toQuery(): SupportSQLiteQuery {
+    val base = StringBuilder("SELECT * FROM character WHERE 1=1")
+    val args = mutableListOf<Any>()
+
+    if (name.isNotBlank()) {
+        base.append(" AND LOWER(name) LIKE ?")
+        args.add("%${name.lowercase()}%")
+    }
+    if (status.isNotBlank()) {
+        base.append(" AND LOWER(status) = ?")
+        args.add(status.lowercase())
+    }
+    if (species.isNotBlank()) {
+        base.append(" AND LOWER(species) = ?")
+        args.add(species.lowercase())
+    }
+    if (type.isNotBlank()) {
+        base.append(" AND LOWER(type) = ?")
+        args.add(type.lowercase())
+    }
+    if (gender.isNotBlank()) {
+        base.append(" AND LOWER(gender) = ?")
+        args.add(gender.lowercase())
+    }
+
+    return SimpleSQLiteQuery(base.toString(), args.toTypedArray())
+}
+
 
 fun DataResponse.toCharacterResponse(isApply: Boolean): CharacterResponse {
 
@@ -68,6 +100,34 @@ fun DataResponse.toCharacterResponse(isApply: Boolean): CharacterResponse {
     return CharacterResponse(
         info = info,
         character = characterData,
-        isApply=isApply
+        isApply = isApply
+    )
+}
+
+fun CharacterData.toCharacterDbo(): CharacterDbo {
+    return CharacterDbo(
+        id = id.toInt(),
+        name = name,
+        status = status,
+        species = species,
+        type = type,
+        image = imageUrl,
+        gender = gender,
+        origin = origin,
+        location = location
+    )
+}
+
+fun CharacterDbo.toCharacterData(): CharacterData? {
+    return CharacterData(
+        id = id.toString(),
+        name = name,
+        status = status,
+        species = species,
+        type = type,
+        imageUrl = image,
+        gender = gender,
+        origin = origin,
+        location = location
     )
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rickandmortyapplication.R
+import com.example.rickandmortyapplication.domain.usecase.GetCharactersDataBaseUseCase
 import com.example.rickandmortyapplication.domain.usecase.GetCharactersUseCase
 import com.example.rickandmortyapplication.domain.usecase.GetFilterCharacterUseCase
 import com.example.rickandmortyapplication.domain.usecase.SaveNumCharacterUseCase
@@ -18,7 +19,9 @@ import com.example.rickandmortyapplication.presentation.fragments.charactersfrag
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.OnFilterClicked
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.OnItemClicked
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.OnStateChanged
+import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.UIState
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.ViewItem
+import com.example.rickandmortyapplication.utils.ResultProcessing
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -26,19 +29,23 @@ class CharactersViewModel(
     private val getCharactersUseCase: GetCharactersUseCase,
     private val saveNumCharacterUseCase: SaveNumCharacterUseCase,
     private val getFilterCharacterUseCase: GetFilterCharacterUseCase,
-    private val setFilterCharactersUseCase: SetFilterCharactersUseCase
+    private val setFilterCharactersUseCase: SetFilterCharactersUseCase,
+    private val getCharactersDataBaseUseCase: GetCharactersDataBaseUseCase
 ) : ViewModel() {
 
     private var currentPage = 1
     private var isRequestRunning = false
     private var isLastPage = false
-    private var filterApply = false
 
-    private val state = MutableLiveData<List<ViewItem>>(emptyList<ViewItem>())
-    val _state: LiveData<List<ViewItem>?> = state
+
+    private val state = MutableLiveData<List<ViewItem?>>(emptyList<ViewItem?>())
+    val _state: LiveData<List<ViewItem?>> = state
 
     private val navigationState = MutableLiveData<Navigation?>()
     val _navigationState: LiveData<Navigation?> = navigationState
+
+    private val uiState = MutableLiveData<UIState>(UIState.Success)
+    val _uiState: LiveData<UIState> = uiState
 
     init {
         navigationState.value = null
@@ -51,18 +58,15 @@ class CharactersViewModel(
     }
 
     private fun compareData() {
-        Log.d("AAAAAAA", "do compareData: ${isLastPage}")
         if (isRequestRunning) return
-
-        Log.d("AAAAAAA", "posle compareData: ${isLastPage}")
         viewModelScope.launch {
-            //uiState.value = UIState.Loading
+
             state.value = getCharacters()
         }
     }
 
-    private suspend fun getCharacters(): List<ViewItem> {
-        var characterList = state.value!!
+    private suspend fun getCharacters(): List<ViewItem?> {
+        var characterList: List<ViewItem?> = state.value!!
         isRequestRunning = true
         try {
             val filter = getFilterCharacterUseCase.execute()
@@ -73,38 +77,66 @@ class CharactersViewModel(
             }
 
             if (!isLastPage) {
-                val data = setFilterCharactersUseCase.execute(currentPage, filter)
+                uiState.value = UIState.Loading
+                val result = setFilterCharactersUseCase.execute(currentPage, filter)
 
-                val character = data.character.map { it ->
-                    CharacterForRecycle(
-                        id = it.id,
-                        name = it.name,
-                        image = Images(it.imageUrl, R.drawable.ic_error_image),
-                        status = it.status,
-                        genderAndSpecies = "${it.gender} | ${it.species}"
-                    )
+                when (result) {
+                    is ResultProcessing.Error -> {
+                        val character =
+                            getCharactersDataBaseUseCase.execute(filter = filter).map { it ->
+                                it?.let {
+                                    CharacterForRecycle(
+                                        id = it.id,
+                                        name = it.name,
+                                        image = Images(it.imageUrl, R.drawable.ic_error_image),
+                                        status = it.status,
+                                        genderAndSpecies = "${it.gender} | ${it.species}"
+                                    )
+                                }
+                            }
+
+                        when (character.isEmpty()) {
+                            true -> {
+                                uiState.value = UIState.Error(message = result.message)
+                            }
+
+                            false -> {
+                                uiState.value = UIState.Success
+                                characterList = character
+                            }
+                        }
+                    }
+
+                    ResultProcessing.Loading -> {
+                        uiState.value = UIState.Loading
+                    }
+
+                    is ResultProcessing.Success -> {
+                        uiState.value = UIState.Success
+                        val character = result.data.character.map { it ->
+                            CharacterForRecycle(
+                                id = it.id,
+                                name = it.name,
+                                image = Images(it.imageUrl, R.drawable.ic_error_image),
+                                status = it.status,
+                                genderAndSpecies = "${it.gender} | ${it.species}"
+                            )
+                        }
+
+
+                        characterList =
+                            if (result.data.isApply) character else characterList + character
+
+                        isLastPage = result.data.info.next == null
+                        currentPage++
+                    }
                 }
-
-                Log.d("AAAAAAA", "getCharacters: ${filter.isApply}")
-
-                characterList = if (data.isApply) {
-                    character
-                } else {
-                    characterList + character
-                }
-
-
-                //characterList = characterList + character
-
-                isLastPage = data.info.next == null
-                currentPage++
             }
+
 
         } finally {
             isRequestRunning = false
-            // _isLoading.value = false
         }
-
         return characterList
     }
 

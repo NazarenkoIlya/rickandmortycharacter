@@ -1,6 +1,8 @@
 package com.example.rickandmortyapplication.di
 
+import com.example.rickandmortyapplication.domain.usecase.GetCharacterDataBaseUseCase
 import com.example.rickandmortyapplication.domain.usecase.GetCharacterUseCase
+import com.example.rickandmortyapplication.domain.usecase.GetCharactersDataBaseUseCase
 import com.example.rickandmortyapplication.domain.usecase.GetCharactersUseCase
 import com.example.rickandmortyapplication.domain.usecase.GetFilterCharacterUseCase
 import com.example.rickandmortyapplication.domain.usecase.GetNumCharacterUseCase
@@ -47,9 +49,20 @@ val domainModule = module {
     factory {
         SetFilterCharactersUseCase(
             filterCharacterRepository = get(),
-            filterRepository=get()
+            filterRepository = get(),
+            characterDataBaseRepository = get()
         )
     }
 
+    factory {
+        GetCharacterDataBaseUseCase(
+            characterDataBaseRepository = get()
+        )
+    }
+    factory {
+        GetCharactersDataBaseUseCase(
+            characterDataBaseRepository = get()
+        )
+    }
 
 }

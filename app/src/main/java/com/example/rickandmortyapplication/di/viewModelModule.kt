@@ -11,8 +11,9 @@ val viewModelModule = module {
         CharactersViewModel(
             getCharactersUseCase = get(),
             saveNumCharacterUseCase = get(),
+            getFilterCharacterUseCase = get(),
             setFilterCharactersUseCase = get(),
-            getFilterCharacterUseCase=get()
+            getCharactersDataBaseUseCase = get(),
         )
     }
 
@@ -20,6 +21,7 @@ val viewModelModule = module {
         DetailsViewModel(
             getNumCharacterUseCase = get(),
             getCharacterUseCase = get(),
+            getCharacterDataBaseUseCase = get(),
             resourcesManager = get()
         )
     }
@@ -30,7 +32,4 @@ val viewModelModule = module {
             getFilterCharacterUseCase = get()
         )
     }
-
-
-    //viewModel { ResultViewModel(get(), get(), get()) }
 }

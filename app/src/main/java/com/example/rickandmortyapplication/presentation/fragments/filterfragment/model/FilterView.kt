@@ -1,5 +1,7 @@
 package com.example.rickandmortyapplication.presentation.fragments.filterfragment.model
 
+
+
 data class FilterView(
     val isApply: Boolean,
     val name: String,
