@@ -15,11 +15,11 @@ class GetCharacterUseCase(
             ResultProcessing.Success(characterRepository.getCharacter(id))
         } catch (e: HttpException) {
             val message = when (e.code()) {
-                400 -> "Неверный запрос"//resourcesManager.getString(R.string.invalid_request, e.code().toString())
+                400 -> "Неверный запрос"
                 404 -> "Данные  не найдены"
                 429 -> "Слишком много запросов"
-                500 -> "Ошибка сервера" //resourcesManager.getString(R.string.server_error, e.code().toString())
-                else -> "Неизвестная ошибка"// resourcesManager.getString(R.string.unknown_error)
+                500 -> "Ошибка сервера"
+                else -> "Неизвестная ошибка"
             }
             ResultProcessing.Error(message)
         } catch (e: Exception) {

@@ -22,8 +22,6 @@ class MainApplication : Application() {
             modules(
                 listOf(
                     retrofitModule,
-                    //gsonModule,
-                    //serviceModule,
                     viewModelModule,
                     managerModule,
                     dataModule,

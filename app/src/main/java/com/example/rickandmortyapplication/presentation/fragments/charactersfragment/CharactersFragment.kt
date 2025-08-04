@@ -1,6 +1,8 @@
 package com.example.rickandmortyapplication.presentation.fragments.charactersfragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.example.rickandmortyapplication.presentation.fragments.charactersfrag
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.GoToFilters
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.OnFilterClicked
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.UIState
+import com.example.rickandmortyapplication.presentation.fragments.filterfragment.model.NameChanged
 import com.example.rickandmortyapplication.utils.autoCleared
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,7 +39,6 @@ class CharactersFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadData()
-        //binding.recyclerView.smoothScrollToPosition(0)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,7 +77,6 @@ class CharactersFragment : Fragment() {
                 is UIState.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.errorMessageTextView.visibility = View.GONE
-                    //binding.recyclerView.visibility = View.GONE
                 }
 
                 is UIState.Success -> {

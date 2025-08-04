@@ -22,7 +22,6 @@ import com.example.rickandmortyapplication.presentation.fragments.charactersfrag
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.UIState
 import com.example.rickandmortyapplication.presentation.fragments.charactersfragment.model.ViewItem
 import com.example.rickandmortyapplication.utils.ResultProcessing
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CharactersViewModel(
@@ -36,7 +35,6 @@ class CharactersViewModel(
     private var currentPage = 1
     private var isRequestRunning = false
     private var isLastPage = false
-
 
     private val state = MutableLiveData<List<ViewItem?>>(emptyList<ViewItem?>())
     val _state: LiveData<List<ViewItem?>> = state
@@ -54,13 +52,13 @@ class CharactersViewModel(
 
 
     fun loadData() {
+
         compareData()
     }
 
     private fun compareData() {
         if (isRequestRunning) return
         viewModelScope.launch {
-
             state.value = getCharacters()
         }
     }
@@ -75,7 +73,6 @@ class CharactersViewModel(
                 currentPage = 1
                 isLastPage = false
             }
-
             if (!isLastPage) {
                 uiState.value = UIState.Loading
                 val result = setFilterCharactersUseCase.execute(currentPage, filter)
@@ -123,7 +120,6 @@ class CharactersViewModel(
                             )
                         }
 
-
                         characterList =
                             if (result.data.isApply) character else characterList + character
 
@@ -132,7 +128,6 @@ class CharactersViewModel(
                     }
                 }
             }
-
 
         } finally {
             isRequestRunning = false

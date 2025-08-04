@@ -17,7 +17,6 @@ val retrofitModule = module {
         .build()
 
     fun provideGson(): Gson = GsonBuilder()
-        //.setLenient()
         .create()
 
     fun provideCharactersService(retrofit: Retrofit): CharactersService =

@@ -89,7 +89,4 @@ class DetailsViewModel(
 
         }
     }
-
-    //"The character named Rick Sanchez (ID: 1) is a male human () with a status of 'Alive'. He is originally from Earth (C-137), and his last known location is the Citadel of Ricks."
-
 }
